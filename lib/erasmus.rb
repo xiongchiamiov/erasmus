@@ -93,8 +93,8 @@ module Erasmus
 			@server.say "JOIN ##{@name}"
 		end
 		
-		def part
-			@server.say "PART ##{@name} :Bai~"
+		def part(message='Bai~')
+			@server.say "PART ##{@name} :#{message}"
 		end
 		
 		def say(message)
