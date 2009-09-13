@@ -3,12 +3,7 @@
 require 'erasmus'
 require 'utils'
 
-bot = Erasmus::Bot.new("irc.freenode.net")
-erasmus_testing = Erasmus::Channel.new('erasmus-testing')
-erasmus_testing.extend Utils::Foo
-erasmus_testing2 = Erasmus::Channel.new('erasmus-testing2')
-bot.join([erasmus_testing,erasmus_testing2])
-
-trap("INT"){ bot.quit }
-
-bot.run
+Erasmus::Bot.new("irc.freenode.net").join([
+	Erasmus::Channel.new('erasmus-testing').extend(Utils::Foo),
+	Erasmus::Channel.new('erasmus-testing2'),
+]).run

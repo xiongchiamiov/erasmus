@@ -20,6 +20,9 @@ module Erasmus
 				channel.join
 				@channels[channel.name] = channel
 			end
+			
+			#return self so we can chain methods
+			self
 		end
 	
 		def say(msg)
