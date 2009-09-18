@@ -115,5 +115,26 @@ module Erasmus
 		def notice_channel(message)
 			@server.notice_channel(@name, message)
 		end
+		
+		def handle_public_message(user, host, message)
+			if message =~ /^#{@server.nick}: (.*)$/
+				handle_hilight(user, host, $1)
+			elsif message =~ /^#{@flag}(\S+)\s(.*)$/
+				command = $1
+				arguments = $2.split(/\s/)
+				handle_flag(user, host, command, arguments)
+			end
+		end
+		
+		def handle_hilight(user, host, message)
+		end
+		def handle_flag(user, host, flag, arguments)
+			@flags = {} if !defined? @flags
+			begin
+				@flags[flag].call(user, host, arguments)
+			rescue NoMethodError
+				#say("Sorry, there's no action associated with the flag #{flag}.")
+			end
+		end
 	end
 end

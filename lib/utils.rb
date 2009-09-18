@@ -1,21 +1,22 @@
 module Utils
 	module Foo
-		def handle_public_message(user, host, message)
-			if message =~ /^#{@server.nick}:/
-				hilight_user(user, 'whatcha want?')
-			elsif message =~ /^#{@flag}(\S+)\s(.*)$/
-				command = $1
-				arguments = $2.split(/\s/)
-				
-				case command
-				when 'foo'
+		def handle_hilight(user, host, message)
+			hilight_user(user, 'whatcha want?')
+		end
+		
+		def self.extended(obj)
+			obj.instance_eval {
+				@flags = {} if @flags.nil?
+				@flags['foo'] = lambda { |user, host, arguments|
 					say('bar')
-				when 'bar'
+				}
+				@flags['bar'] = lambda { |user, host, arguments|
 					notice_user(user, 'baz')
-				when 'baz'
+				}
+				@flags['baz'] = lambda { |user, host, arguments|
 					notice_channel('not baz!')
-				end
-			end
+				}
+			}
 		end
 		
 		def join
@@ -25,13 +26,10 @@ module Utils
 	end
 	
 	module Changelog
-		def handle_public_message(user, host, message)
-			if message =~ /^#{@flag}(\S+)\s(.*)$/
-				command = $1
-				arguments = $2.split(/\s/)
-				
-				case command
-				when 'changelog'
+		def self.extended(obj)
+			obj.instance_eval {
+				@flags = {} if @flags.nil?
+				@flags['changelog'] = lambda { |user, host, arguments|
 					if arguments[0] and arguments[0] =~ /^[\w\d "]+$/
 						output = `git --no-pager log --pretty=format:%s --since=#{arguments[0]}`
 					else
@@ -44,8 +42,8 @@ module Utils
 							say summary
 						end
 					end
-				end
-			end
+				}
+			}
 		end
 	end
 end
