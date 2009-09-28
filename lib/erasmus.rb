@@ -90,6 +90,8 @@ module Erasmus
 		def initialize(channel, flag='!')
 			@name = channel
 			@flag = flag
+			
+			@flags = {}
 		end
 		
 		def join

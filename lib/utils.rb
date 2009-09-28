@@ -6,7 +6,6 @@ module Utils
 		
 		def self.extended(obj)
 			obj.instance_eval {
-				@flags = {} if @flags.nil?
 				@flags['foo'] = lambda { |user, host, arguments|
 					say('bar')
 				}
@@ -28,7 +27,6 @@ module Utils
 	module Changelog
 		def self.extended(obj)
 			obj.instance_eval {
-				@flags = {} if @flags.nil?
 				@flags['changelog'] = lambda { |user, host, arguments|
 					if arguments[0] and arguments[0] =~ /^[\w\d "]+$/
 						output = `git --no-pager log --pretty=format:%s --since=#{arguments[0]}`
