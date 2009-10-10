@@ -92,6 +92,7 @@ module Erasmus
 			@flag = flag
 			
 			@flags = {}
+			@blacklists = []
 		end
 		
 		def join
@@ -131,12 +132,31 @@ module Erasmus
 		def handle_hilight(user, host, message)
 		end
 		def handle_flag(user, host, flag, arguments)
-			@flags = {} if !defined? @flags
-			begin
-				@flags[flag].call(user, host, arguments)
-			rescue NoMethodError
-				#say("Sorry, there's no action associated with the flag #{flag}.")
+			if allowed? user
+				begin
+					@flags[flag].call(user, host, arguments)
+				rescue NoMethodError
+					#say("Sorry, there's no action associated with the flag #{flag}.")
+				end
 			end
 		end
+		
+		def allowed?(user)
+			begin
+				@blacklists.each do |blacklist|
+					blacklist.call(user)
+				end
+			rescue NotAllowedException
+				return false
+			rescue => detail
+				say("Uh oh: #{detail}")
+				return false
+			else
+				return true
+			end
+		end
+	end
+	
+	class NotAllowedException < StandardError
 	end
 end

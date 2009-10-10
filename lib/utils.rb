@@ -44,4 +44,26 @@ module Utils
 			}
 		end
 	end
+	
+	module FlagFloodProtection
+		require 'erasmus'
+		require 'thread' # for Queue
+		
+		def self.extended(obj)
+			obj.instance_eval {
+				@userMessages = Hash.new(Queue.new)
+				@blacklists << lambda { |user|
+					@userMessages[user] << Time.now
+					
+					# don't allow messages from users who have sent
+					# 5 messages in 15 seconds
+					if @userMessages[user].length > 4 \
+					and Time.now - @userMessages[user].pop < 15
+						say("#{user} is flooding!")
+						raise Erasmus::NotAllowedException
+					end
+				}
+			}
+		end
+	end
 end
