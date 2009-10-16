@@ -10,16 +10,28 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["xiongchiamiov"]
   s.date = %q{2009-10-15}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{A simple, modular irc bot/framework}
   s.email = %q{xiong.chiamiov@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
   ]
   s.files = [
-    "lib/bots.rb",
+    ".document",
+     ".gitignore",
+     "LICENSE",
+     "README.rdoc",
+     "Rakefile",
+     "VERSION.yml",
+     "erasmus.gemspec",
+     "lib/bots.rb",
+     "lib/bots.rb",
      "lib/erasmus.rb",
-     "lib/utils.rb"
+     "lib/erasmus.rb",
+     "lib/utils.rb",
+     "lib/utils.rb",
+     "test/erasmus_test.rb",
+     "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/xiongchiamiov/erasmus}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -36,11 +48,8 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     else
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     end
   else
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
   end
 end
