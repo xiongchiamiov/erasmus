@@ -28,8 +28,7 @@ Gem::Specification.new do |s|
      "lib/bots.rb",
      "lib/erasmus.rb",
      "lib/erasmus.rb",
-     "lib/utils.rb",
-     "lib/utils.rb",
+     "lib/erasmus/utils.rb",
      "test/erasmus_test.rb",
      "test/test_helper.rb"
   ]
