@@ -71,10 +71,6 @@ module Erasmus
 			end
 		end
 		
-		def handle_private_message(user, host, message)
-			pm_user(user, 'hey!')
-		end
-	
 		def quit
 			@channels.each do |name, channel|
 				channel.part
