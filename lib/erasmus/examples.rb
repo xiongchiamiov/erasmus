@@ -3,22 +3,22 @@ module Examples
 		def handle_private_message(user, host, message)
 			pm_user(user, 'hey!')
 		end
-	
-		def handle_hilight(user, host, message)
-			hilight_user(user, 'whatcha want?')
-		end
 		
 		# this is how we handle flags that the bot will respond to
 		def self.extended(obj)
 			obj.instance_eval {
-				@flags['foo'] = lambda { |user, host, arguments|
+				@flags['foo'] = lambda { |user, host, arguments, source|
 					say('bar')
 				}
-				@flags['bar'] = lambda { |user, host, arguments|
-					notice_user(user, 'baz')
-					say("Hey everyone, #{user} wants to bar.")
+				@flags['bar'] = lambda { |user, host, arguments, source|
+					if source == :hilight
+						notice_user(user, 'baz')
+					end
+					if source == :flag
+						say("Hey everyone, #{user} wants to bar.")
+					end
 				}
-				@flags['baz'] = lambda { |user, host, arguments|
+				@flags['baz'] = lambda { |user, host, arguments, source|
 					notice_channel('not baz!')
 				}
 			}

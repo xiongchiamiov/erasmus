@@ -5,7 +5,7 @@ module Github
 			obj.instance_eval {
 				repo = Octopi::Repository.find("xiongchiamiov", "erasmus")
 				
-				@flags['issues'] = lambda { |user, host, arguments|
+				@flags['issues'] = lambda { |user, host, arguments, source|
 					if arguments[0] and arguments[0] =~ /^\d+$/
 						begin
 							# this only gives up after receiving 10 403s,
@@ -27,7 +27,7 @@ module Github
 						end
 					end
 				}
-				@flags['issue-detail'] = lambda { |user, host, arguments|
+				@flags['issue-detail'] = lambda { |user, host, arguments, source|
 					if arguments[0] and arguments[0] =~ /^\d+$/
 						begin
 							issue = repo.issue(arguments[0])

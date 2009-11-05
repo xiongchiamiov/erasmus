@@ -116,21 +116,21 @@ module Erasmus
 		end
 		
 		def handle_public_message(user, host, message)
-			if message =~ /^#{@server.nick}: (.*)$/
-				handle_hilight(user, host, $1)
+			if message =~ /^#{@server.nick}: (\S+)\s(.*)$/
+				command = $1
+				arguments = $2.split(/\s/)
+				handle_flag(user, host, command, arguments, :hilight)
 			elsif message =~ /^#{@flag}(\S+)\s(.*)$/
 				command = $1
 				arguments = $2.split(/\s/)
-				handle_flag(user, host, command, arguments)
+				handle_flag(user, host, command, arguments, :flag)
 			end
 		end
 		
-		def handle_hilight(user, host, message)
-		end
-		def handle_flag(user, host, flag, arguments)
+		def handle_flag(user, host, flag, arguments, source)
 			if allowed? user
 				begin
-					@flags[flag].call(user, host, arguments)
+					@flags[flag].call(user, host, arguments, source)
 				rescue NoMethodError
 					#say("Sorry, there's no action associated with the flag #{flag}.")
 				end

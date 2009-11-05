@@ -2,7 +2,7 @@ module Utils
 	module Changelog
 		def self.extended(obj)
 			obj.instance_eval {
-				@flags['changelog'] = lambda { |user, host, arguments|
+				@flags['changelog'] = lambda { |user, host, arguments, source|
 					if arguments[0] and arguments[0] =~ /^[\w\d "]+$/
 						output = `git --no-pager log --pretty=format:%s --since=#{arguments[0]}`
 					else
