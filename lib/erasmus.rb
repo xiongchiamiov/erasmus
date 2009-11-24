@@ -4,10 +4,12 @@ require 'socket'
 
 module Erasmus
 	class Bot
-		attr_reader :nick
+		attr_reader :nick, :owner, :server
 		
-		def initialize(server, port=6667)
-			@nick = 'mpu_test'
+		def initialize(server, nick='mpu_test', owner='xiong_chiamiov', port=6667)
+			@server = server
+			@nick = nick
+			@owner = owner
 			@channels = {}
 			@socket = TCPSocket.open(server, port)
 			say "NICK #{@nick}"
@@ -46,6 +48,24 @@ module Erasmus
 			say "NOTICE ##{channel} :#{message}"
 		end
 		
+		def whois(user)
+			say "WHOIS #{user}"
+		end
+		
+		def acc(user)
+			pm_user('nickserv', "ACC #{user}")
+			return @socket.gets
+		end
+		
+		def status(user)
+			pm_user('nickserv', "STATUS #{user}")
+			return @socket.gets
+		end
+		
+		def handle_private_message(user, host, message)
+			pm_user(user, "erasmus")
+		end
+		
 		def run
 			until @socket.eof? do
 				msg = @socket.gets
@@ -76,6 +96,7 @@ module Erasmus
 				channel.part
 			end
 			say 'QUIT'
+			exit
 		end
 	end
 	
@@ -113,6 +134,10 @@ module Erasmus
 		
 		def notice_channel(message)
 			@server.notice_channel(@name, message)
+		end
+		
+		def whois(user)
+			@server.whois(user)
 		end
 		
 		def handle_public_message(user, host, message)
@@ -154,5 +179,7 @@ module Erasmus
 	end
 	
 	class NotAllowedException < StandardError
+	end
+	class AuthenticationError < StandardError
 	end
 end
