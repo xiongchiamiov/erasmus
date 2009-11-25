@@ -53,13 +53,15 @@ module Erasmus
 		end
 		
 		def acc(user)
-			pm_user('nickserv', "ACC #{user}")
-			return @socket.gets
-		end
-		
-		def status(user)
-			pm_user('nickserv', "STATUS #{user}")
-			return @socket.gets
+			if @server.include? 'freenode'
+				pm_user('nickserv', "ACC #{user}")
+			elsif @server.include? 'rizon'
+				pm_user('nickserv', "STATUS #{user}")
+			end
+			
+			msg = @socket.gets
+			puts msg
+			return msg.rstrip()[-1..-1]
 		end
 		
 		def handle_private_message(user, host, message)
