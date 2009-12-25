@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Define your bots in here.
+
 require 'erasmus'
 require 'erasmus/utils'
 require 'erasmus/github'

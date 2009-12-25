@@ -1,5 +1,6 @@
 module Github
 	module Issues
+      require 'rubygems'
 		require 'octopi'
 		def self.extended(obj)
 			obj.instance_eval {
