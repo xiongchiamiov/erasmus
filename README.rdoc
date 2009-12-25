@@ -1,12 +1,12 @@
 = erasmus
 
-A simple, modular irc bot/framework.
+A simple, modular IRC bot/framework.
 
 == Install
 
- 1. edit the file lib/bots.rb and define the bots you want to run.
- 2. Make sure the dependencies are installed:
-   * octopi (And it's dependency packages. I've listed their ubuntu equivelents below) 
+1. edit the file lib/bots.rb and define the bots you want to run.
+2. Make sure the dependencies are installed:
+   * octopi (And it's dependency packages. I've listed their Ubuntu equivalents below) 
       * libxml2-dev
       * libxslt-dev
    * api_cache
