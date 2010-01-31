@@ -2,8 +2,8 @@
 
 Gem::Specification.new do |s|
   s.name = %q{erasmus}
-  s.version = "0.0.2"
-  s.date = %q{2010-01-31}
+  s.version = "0.0.3"
+  s.date = Time.now.strftime('%Y-%m-%d')
 
   s.authors = ["xiongchiamiov"]
   s.email = %q{xiong.chiamiov@gmail.com}
