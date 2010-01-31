@@ -1,8 +1,8 @@
-= erasmus
+# erasmus
 
 A simple, modular IRC bot/framework.
 
-== Install
+## Install
 
 1. edit the file lib/bots.rb and define the bots you want to run.
 2. Make sure the dependencies are installed:
@@ -11,7 +11,7 @@ A simple, modular IRC bot/framework.
       * libxslt-dev
    * api_cache
 
-== Note on Patches/Pull Requests
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -19,6 +19,6 @@ A simple, modular IRC bot/framework.
 * Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Copyright
 
 See LICENSE for details.
